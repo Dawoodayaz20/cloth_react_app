@@ -39,7 +39,6 @@ class SignIn extends React.Component{
                     label='email'
                     required
                     />
-                    {/* <label>Email</label> */}
                     <FormInput 
                     name='password'
                     type='password'
@@ -48,11 +47,10 @@ class SignIn extends React.Component{
                     label='password'
                     required
                     />
-                    {/* <label>Email</label> */}
                     <CustomButton type="submit">
                         Sign In
                     </CustomButton>
-                    <CustomButton onClick={signInWithGoogle}>
+                    <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
                         Sign In with Google
                     </CustomButton>
                 </form>
