@@ -27,9 +27,18 @@ class App extends React.Component {
 
        // Correct way to use onSnapshot in Firebase v9+
       onSnapshot(userRef, (snapShot) => {
-        console.log(snapShot.data());
+        this.setState({
+          currentUser: {
+            id: snapShot.id,
+            ...snapShot.data()
+          }
+        },()=>{
+          console.log(this.state)
         })
-      }
+      });
+    }
+      this.setState({currentUser: userAuth})
+      console.log(this.state)
     })
   }
 
