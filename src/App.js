@@ -5,7 +5,8 @@ import HomePage from './pages/homePage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header  from './components/header/header.component';
 import SignInSignUp from './pages/SignupSigninPage/signup_signin_page.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { onSnapshot } from "firebase/firestore";
 
 
 class App extends React.Component {
@@ -20,10 +21,15 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user})
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
 
-      console.log(user)
+       // Correct way to use onSnapshot in Firebase v9+
+      onSnapshot(userRef, (snapShot) => {
+        console.log(snapShot.data());
+        })
+      }
     })
   }
 
